@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
+import { getPhoto } from '../utils/photos';
 
 // Šabloniniai atsiliepimai — pakeisti tikrais klientų atsiliepimais
 const testimonials = [
@@ -24,7 +26,7 @@ const testimonials = [
 <Layout title="Deimantė Šuliauskaitė" description="Fotografijos portfolio — akimirkos, kurios išlieka.">
   <!-- Hero -->
   <section class="relative h-[90vh] bg-neutral-100 flex items-end">
-    <img src={`${import.meta.env.BASE_URL}images/photo_3.webp`} alt="" class="absolute inset-0 w-full h-full object-cover" />
+    <Image src={getPhoto('photo_3')} alt="" class="absolute inset-0 w-full h-full object-cover" widths={[640, 1024, 1600, 2400]} sizes="100vw" quality={80} />
     <div class="absolute inset-0 bg-black/20"></div>
     <div class="relative z-10 p-10 sm:p-16">
       <h1 class="font-serif text-white text-5xl sm:text-7xl italic font-medium tracking-tight drop-shadow-lg">
@@ -51,7 +53,7 @@ const testimonials = [
     <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
       {['photo_4', 'photo_5', 'photo_6', 'photo_7', 'photo_8', 'photo_9'].map(photo => (
         <div class="aspect-square bg-rose-50 overflow-hidden">
-          <img src={`${import.meta.env.BASE_URL}images/${photo}.webp`} alt="" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+          <Image src={getPhoto(photo)} alt="" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" widths={[300, 500, 800]} sizes="(min-width: 640px) 33vw, 50vw" quality={80} />
         </div>
       ))}
     </div>
