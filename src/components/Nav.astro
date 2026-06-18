@@ -12,9 +12,9 @@ const navLinks = [
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-neutral-200">
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-rose-100">
   <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-    <a href={base} class="text-sm font-medium tracking-widest uppercase hover:text-neutral-500 transition-colors">
+    <a href={base} class="text-sm font-medium tracking-widest uppercase hover:text-rose-400 transition-colors">
       Deimantė Šuliauskaitė
     </a>
 
@@ -25,8 +25,8 @@ const currentPath = Astro.url.pathname;
           <li>
             <a
               href={link.href}
-              class={`text-sm tracking-wide transition-colors hover:text-neutral-500 ${
-                currentPath.startsWith(link.href) ? 'text-neutral-900 font-medium' : 'text-neutral-600'
+              class={`text-sm tracking-wide transition-colors hover:text-rose-400 ${
+                currentPath.startsWith(link.href) ? 'text-rose-500 font-medium' : 'text-neutral-600'
               }`}
             >
               {link.label}
@@ -51,14 +51,14 @@ const currentPath = Astro.url.pathname;
   </nav>
 
   <!-- Mobile menu panel -->
-  <div id="mobile-menu" class="sm:hidden hidden flex-col border-t border-neutral-200 bg-white px-6 py-4 gap-1">
+  <div id="mobile-menu" class="sm:hidden hidden flex-col border-t border-rose-100 bg-white px-6 py-4 gap-1">
     <ul class="flex flex-col gap-1">
       {navLinks.map(link => (
         <li>
           <a
             href={link.href}
             class={`block py-3 text-base tracking-wide transition-colors ${
-              currentPath.startsWith(link.href) ? 'text-neutral-900 font-medium' : 'text-neutral-600'
+              currentPath.startsWith(link.href) ? 'text-rose-500 font-medium' : 'text-neutral-600'
             }`}
           >
             {link.label}
@@ -66,7 +66,7 @@ const currentPath = Astro.url.pathname;
         </li>
       ))}
     </ul>
-    <SocialIcons class="pt-3 mt-2 border-t border-neutral-200" iconClass="w-5 h-5" />
+    <SocialIcons class="pt-3 mt-2 border-t border-rose-100" iconClass="w-5 h-5" />
   </div>
 </header>
 <div class="h-16"></div>

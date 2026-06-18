@@ -11,12 +11,12 @@ const { series: s } = Astro.props;
 
 <Layout title={`${s.title} — Deimantė Šuliauskaitė`} description={`${s.title} — fotografijų serija.`}>
   <section class="max-w-6xl mx-auto px-6 py-16">
-    <a href={`${import.meta.env.BASE_URL}work`} class="text-sm text-neutral-500 hover:text-neutral-900 transition-colors">&larr; Visi darbai</a>
+    <a href={`${import.meta.env.BASE_URL}work`} class="text-sm text-neutral-500 hover:text-rose-500 transition-colors">&larr; Visi darbai</a>
     <h1 class="text-3xl font-light tracking-tight mt-4 mb-16">{s.title}</h1>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
       {s.photos.map((photo: string) => (
-        <div class="aspect-[4/3] bg-neutral-100 overflow-hidden">
+        <div class="aspect-[4/3] bg-rose-50 overflow-hidden">
           <img src={`${import.meta.env.BASE_URL}images/${photo}.webp`} alt="" class="w-full h-full object-cover" />
         </div>
       ))}
