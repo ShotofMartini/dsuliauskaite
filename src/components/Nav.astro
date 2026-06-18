@@ -1,4 +1,6 @@
 ---
+import SocialIcons from './SocialIcons.astro';
+
 const base = import.meta.env.BASE_URL;
 const navLinks = [
   { href: `${base}work`, label: 'Darbai' },
@@ -17,20 +19,23 @@ const currentPath = Astro.url.pathname;
     </a>
 
     <!-- Desktop nav -->
-    <ul class="hidden sm:flex items-center gap-8">
-      {navLinks.map(link => (
-        <li>
-          <a
-            href={link.href}
-            class={`text-sm tracking-wide transition-colors hover:text-neutral-500 ${
-              currentPath.startsWith(link.href) ? 'text-neutral-900 font-medium' : 'text-neutral-600'
-            }`}
-          >
-            {link.label}
-          </a>
-        </li>
-      ))}
-    </ul>
+    <div class="hidden sm:flex items-center gap-8">
+      <ul class="flex items-center gap-8">
+        {navLinks.map(link => (
+          <li>
+            <a
+              href={link.href}
+              class={`text-sm tracking-wide transition-colors hover:text-neutral-500 ${
+                currentPath.startsWith(link.href) ? 'text-neutral-900 font-medium' : 'text-neutral-600'
+              }`}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <SocialIcons iconClass="w-[18px] h-[18px]" />
+    </div>
 
     <!-- Mobile menu button -->
     <button
@@ -46,20 +51,23 @@ const currentPath = Astro.url.pathname;
   </nav>
 
   <!-- Mobile menu panel -->
-  <ul id="mobile-menu" class="sm:hidden hidden flex-col border-t border-neutral-200 bg-white px-6 py-4 gap-1">
-    {navLinks.map(link => (
-      <li>
-        <a
-          href={link.href}
-          class={`block py-3 text-base tracking-wide transition-colors ${
-            currentPath.startsWith(link.href) ? 'text-neutral-900 font-medium' : 'text-neutral-600'
-          }`}
-        >
-          {link.label}
-        </a>
-      </li>
-    ))}
-  </ul>
+  <div id="mobile-menu" class="sm:hidden hidden flex-col border-t border-neutral-200 bg-white px-6 py-4 gap-1">
+    <ul class="flex flex-col gap-1">
+      {navLinks.map(link => (
+        <li>
+          <a
+            href={link.href}
+            class={`block py-3 text-base tracking-wide transition-colors ${
+              currentPath.startsWith(link.href) ? 'text-neutral-900 font-medium' : 'text-neutral-600'
+            }`}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <SocialIcons class="pt-3 mt-2 border-t border-neutral-200" iconClass="w-5 h-5" />
+  </div>
 </header>
 <div class="h-16"></div>
 

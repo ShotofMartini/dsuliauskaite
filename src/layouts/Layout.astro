@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
+import SocialIcons from '../components/SocialIcons.astro';
 
 interface Props {
   title?: string;
@@ -27,9 +28,7 @@ const { title = 'Deimantė Šuliauskaitė', description = 'Fotografijos portfoli
     <footer class="border-t border-neutral-200 py-8 mt-24">
       <div class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-neutral-500">
         <p>&copy; {new Date().getFullYear()} Deimantė Šuliauskaitė. Visos teisės saugomos.</p>
-        <div class="flex gap-6">
-          <a href="https://www.instagram.com/ataik_nutrauksiu/" target="_blank" rel="noopener" class="hover:text-neutral-900 transition-colors">Instagram</a>
-        </div>
+        <SocialIcons />
       </div>
     </footer>
   </body>
