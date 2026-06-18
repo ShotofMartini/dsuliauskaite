@@ -1,0 +1,33 @@
+---
+const navLinks = [
+  { href: '/work', label: 'Darbai' },
+  { href: '/about', label: 'Apie' },
+  { href: '/press', label: 'Spauda' },
+  { href: '/contact', label: 'Susisiekti' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-neutral-200">
+  <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="/" class="text-sm font-medium tracking-widest uppercase hover:text-neutral-500 transition-colors">
+      Deimantė Šuliauskaitė
+    </a>
+    <ul class="flex items-center gap-8">
+      {navLinks.map(link => (
+        <li>
+          <a
+            href={link.href}
+            class={`text-sm tracking-wide transition-colors hover:text-neutral-500 ${
+              currentPath.startsWith(link.href) ? 'text-neutral-900 font-medium' : 'text-neutral-600'
+            }`}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+</header>
+<div class="h-16"></div>
