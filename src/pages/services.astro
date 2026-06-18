@@ -41,7 +41,7 @@ const steps = [
   },
   {
     title: 'Nuotraukų gavimas',
-    description: 'Atrenku ir apdoroju geriausius kadrus. Paruoštas nuotraukas gauni per 1–4 savaites (priklausomai nuo sesijos).',
+    description: 'Atrenku ir apdoroju geriausius kadrus. Paruoštas nuotraukas gauni per 1–4 savaites. Pristatomos tik apdorotos nuotraukos — neretušuoti (RAW) originalai neteikiami.',
   },
 ];
 
@@ -61,6 +61,10 @@ const faqs = [
   {
     q: 'Kiek nuotraukų gausiu?',
     a: 'Nuotraukų skaičius priklauso nuo sesijos tipo ir trukmės — tikslų skaičių aptariame prieš fotosesiją.',
+  },
+  {
+    q: 'Ar gausiu neapdorotas (RAW) nuotraukas?',
+    a: 'Ne — pristatau tik atrinktas ir apdorotas nuotraukas. Neretušuoti (RAW) originalai klientams neteikiami, nes apdorojimas yra neatsiejama mano darbo ir stiliaus dalis.',
   },
   {
     q: 'Kaip užsisakyti fotosesiją?',
@@ -101,7 +105,7 @@ const faqs = [
     </div>
 
     <!-- DUK -->
-    <div class="mt-24">
+    <div id="duk" class="mt-24 scroll-mt-24">
       <h2 class="font-serif text-4xl italic font-medium tracking-tight mb-12">Dažni klausimai</h2>
       <div class="divide-y divide-neutral-200 border-t border-neutral-200">
         {faqs.map(faq => (

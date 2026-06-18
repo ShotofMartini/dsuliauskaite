@@ -1,5 +1,24 @@
 ---
 import Layout from '../layouts/Layout.astro';
+
+// Šabloniniai atsiliepimai — pakeisti tikrais klientų atsiliepimais
+const testimonials = [
+  {
+    text: 'Deimantė sugebėjo užfiksuoti tokias nuoširdžias akimirkas, kokių net nesitikėjome. Nuotraukos pranoko visus lūkesčius!',
+    author: 'Gabrielė',
+    occasion: 'Šeimos fotosesija',
+  },
+  {
+    text: 'Fotosesijos metu jaučiausi visiškai laisvai. Rezultatas — gyvos, natūralios nuotraukos, kurias mylime iki šiol.',
+    author: 'Tomas',
+    occasion: 'Asmeninė sesija',
+  },
+  {
+    text: 'Profesionalu, jauku ir su didele meile detalėms. Tikrai rekomenduoju ir kreipsiuosi dar ne kartą.',
+    author: 'Rūta',
+    occasion: 'Renginio fotografija',
+  },
+];
 ---
 
 <Layout title="Deimantė Šuliauskaitė" description="Fotografijos portfolio — akimirkos, kurios išlieka.">
@@ -40,6 +59,44 @@ import Layout from '../layouts/Layout.astro';
       <a href={`${import.meta.env.BASE_URL}work`} class="text-sm tracking-widest uppercase border-b border-neutral-900 pb-1 hover:text-rose-500 hover:border-rose-400 transition-colors">
         Visi darbai
       </a>
+    </div>
+  </section>
+
+  <!-- Atsiliepimai -->
+  <section class="max-w-5xl mx-auto px-6 py-20">
+    <h2 class="font-serif text-4xl italic font-medium tracking-tight text-center mb-16">Klientų atsiliepimai</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-10">
+      {testimonials.map(t => (
+        <figure class="text-center">
+          <span class="font-serif text-5xl italic text-rose-200 leading-none">&ldquo;</span>
+          <blockquote class="text-neutral-700 leading-relaxed mt-2 mb-6">{t.text}</blockquote>
+          <figcaption class="text-sm">
+            <span class="font-medium text-neutral-900">{t.author}</span>
+            <span class="block text-neutral-400 mt-1">{t.occasion}</span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <!-- Greitos nuorodos -->
+  <section class="bg-rose-50/60 py-20">
+    <div class="max-w-4xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-3 gap-10 text-center">
+      <div>
+        <h2 class="font-serif text-2xl italic font-medium mb-3">Paslaugos</h2>
+        <p class="text-neutral-600 text-sm leading-relaxed mb-4">Portretai, šeimos sesijos, renginiai ir bendradarbiavimai.</p>
+        <a href={`${import.meta.env.BASE_URL}services`} class="text-sm tracking-wide border-b border-neutral-400 pb-0.5 hover:text-rose-500 hover:border-rose-400 transition-colors">Sužinoti daugiau</a>
+      </div>
+      <div>
+        <h2 class="font-serif text-2xl italic font-medium mb-3">Kaip vyksta</h2>
+        <p class="text-neutral-600 text-sm leading-relaxed mb-4">Nuo pirmos žinutės iki paruoštų nuotraukų — žingsnis po žingsnio.</p>
+        <a href={`${import.meta.env.BASE_URL}services`} class="text-sm tracking-wide border-b border-neutral-400 pb-0.5 hover:text-rose-500 hover:border-rose-400 transition-colors">Fotosesijos eiga</a>
+      </div>
+      <div>
+        <h2 class="font-serif text-2xl italic font-medium mb-3">Dažni klausimai</h2>
+        <p class="text-neutral-600 text-sm leading-relaxed mb-4">Atsakymai į dažniausiai užduodamus klausimus apie fotosesijas.</p>
+        <a href={`${import.meta.env.BASE_URL}services#duk`} class="text-sm tracking-wide border-b border-neutral-400 pb-0.5 hover:text-rose-500 hover:border-rose-400 transition-colors">Skaityti DUK</a>
+      </div>
     </div>
   </section>
 </Layout>
