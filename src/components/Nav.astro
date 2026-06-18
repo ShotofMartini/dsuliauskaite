@@ -15,7 +15,9 @@ const currentPath = Astro.url.pathname;
     <a href={base} class="text-sm font-medium tracking-widest uppercase hover:text-neutral-500 transition-colors">
       Deimantė Šuliauskaitė
     </a>
-    <ul class="flex items-center gap-8">
+
+    <!-- Desktop nav -->
+    <ul class="hidden sm:flex items-center gap-8">
       {navLinks.map(link => (
         <li>
           <a
@@ -29,6 +31,58 @@ const currentPath = Astro.url.pathname;
         </li>
       ))}
     </ul>
+
+    <!-- Mobile menu button -->
+    <button
+      id="menu-toggle"
+      type="button"
+      aria-label="Atidaryti meniu"
+      aria-expanded="false"
+      class="sm:hidden relative w-8 h-8 flex flex-col items-center justify-center gap-1.5"
+    >
+      <span class="menu-bar block w-6 h-px bg-neutral-900 transition-transform"></span>
+      <span class="menu-bar block w-6 h-px bg-neutral-900 transition-transform"></span>
+    </button>
   </nav>
+
+  <!-- Mobile menu panel -->
+  <ul id="mobile-menu" class="sm:hidden hidden flex-col border-t border-neutral-200 bg-white px-6 py-4 gap-1">
+    {navLinks.map(link => (
+      <li>
+        <a
+          href={link.href}
+          class={`block py-3 text-base tracking-wide transition-colors ${
+            currentPath.startsWith(link.href) ? 'text-neutral-900 font-medium' : 'text-neutral-600'
+          }`}
+        >
+          {link.label}
+        </a>
+      </li>
+    ))}
+  </ul>
 </header>
 <div class="h-16"></div>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = !menu?.classList.contains('hidden');
+    menu?.classList.toggle('hidden');
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+    toggle.classList.toggle('is-open');
+  });
+</script>
+
+<style>
+  #menu-toggle.is-open .menu-bar:first-child {
+    transform: translateY(3px) rotate(45deg);
+  }
+  #menu-toggle.is-open .menu-bar:last-child {
+    transform: translateY(-3px) rotate(-45deg);
+  }
+  #mobile-menu:not(.hidden) {
+    display: flex;
+  }
+</style>
