@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@theme {
+  --font-serif: "Cormorant Garamond", serif;
+  --font-signature: "Allura", cursive;
+}
+
 html {
   scroll-behavior: smooth;
 }

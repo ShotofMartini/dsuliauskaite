@@ -1,0 +1,59 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const base = import.meta.env.BASE_URL;
+
+const services = [
+  {
+    title: 'Portretai',
+    description: 'Asmeninės fotosesijos, kuriose svarbiausia — tu pats. Natūralus žvilgsnis, tikra nuotaika, be perteklinės pozos.',
+  },
+  {
+    title: 'Šeimos fotosesijos',
+    description: 'Šiltos, autentiškos akimirkos su artimiausiais žmonėmis — tokios, kurias norėsis prisiminti po daugelio metų.',
+  },
+  {
+    title: 'Renginiai ir šventės',
+    description: 'Gimtadieniai, sutikimai, šeimos švenčių akimirkos — papasakotos nuotraukomis, nepertraukiant pačios šventės eigos.',
+  },
+  {
+    title: 'Meninės ir koncepcinės sesijos',
+    description: 'Idėjomis grįstos fotosesijos, kuriose kartu ieškome unikalios, tau tinkančios vizualinės kalbos.',
+  },
+  {
+    title: 'Bendradarbiavimas su prekės ženklais',
+    description: 'Produktų ir lifestyle fotografija bendradarbiavimams, kampanijoms ir socialiniams tinklams.',
+  },
+];
+---
+
+<Layout title="Paslaugos — Deimantė Šuliauskaitė" description="Fotografijos paslaugos — portretai, šeimos sesijos, renginiai ir bendradarbiavimai.">
+  <section class="max-w-4xl mx-auto px-6 py-16">
+    <h1 class="font-serif text-5xl italic font-medium tracking-tight mb-8">Paslaugos</h1>
+
+    <p class="text-neutral-700 leading-relaxed max-w-2xl mb-16">
+      Fotografuoju įvairias progas ir nuotaikas — nuo asmeninių portretų iki gyvų renginio akimirkų. Kiekviena sesija pritaikoma individualiai, pagal tavo norus ir istoriją, kurią norisi papasakoti.
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-10">
+      {services.map(service => (
+        <div class="border-l-2 border-rose-200 pl-6">
+          <h2 class="font-serif text-2xl italic font-medium mb-2">{service.title}</h2>
+          <p class="text-neutral-600 text-sm leading-relaxed">{service.description}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-20 pt-10 border-t border-rose-100 text-center">
+      <p class="text-neutral-600 mb-6">
+        Kaina priklauso nuo sesijos trukmės, vietos ir pobūdžio — aptariame individualiai.
+      </p>
+      <a
+        href={`${base}contact`}
+        class="inline-block text-sm tracking-widest uppercase border-b border-neutral-900 pb-1 hover:text-rose-500 hover:border-rose-400 transition-colors"
+      >
+        Susisiekti dėl kainos
+      </a>
+    </div>
+  </section>
+</Layout>
