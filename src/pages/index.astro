@@ -5,7 +5,7 @@ import Layout from '../layouts/Layout.astro';
 <Layout title="Deimantė Šuliauskaitė" description="Fotografijos portfolio — akimirkos, kurios išlieka.">
   <!-- Hero -->
   <section class="relative h-[90vh] bg-neutral-100 flex items-end">
-    <img src="/images/photo_3.webp" alt="" class="absolute inset-0 w-full h-full object-cover" />
+    <img src={`${import.meta.env.BASE_URL}images/photo_3.webp`} alt="" class="absolute inset-0 w-full h-full object-cover" />
     <div class="absolute inset-0 bg-black/20"></div>
     <div class="relative z-10 p-10 sm:p-16">
       <h1 class="text-white text-4xl sm:text-6xl font-light tracking-tight drop-shadow-lg">
@@ -22,7 +22,7 @@ import Layout from '../layouts/Layout.astro';
     <p class="text-xl sm:text-2xl font-light leading-relaxed text-neutral-700">
       23 metų fotografė iš Bartininkų. Fotografuoju žmones, akimirkas ir nuotaikas — ieškau tylos tarp kadrų ir to, kas nepasakoma žodžiais.
     </p>
-    <a href="/work" class="inline-block mt-10 text-sm tracking-widest uppercase border-b border-neutral-900 pb-1 hover:text-neutral-500 hover:border-neutral-500 transition-colors">
+    <a href={`${import.meta.env.BASE_URL}work`} class="inline-block mt-10 text-sm tracking-widest uppercase border-b border-neutral-900 pb-1 hover:text-neutral-500 hover:border-neutral-500 transition-colors">
       Žiūrėti darbus
     </a>
   </section>
@@ -32,12 +32,12 @@ import Layout from '../layouts/Layout.astro';
     <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
       {['photo_4', 'photo_5', 'photo_6', 'photo_7', 'photo_8', 'photo_9'].map(photo => (
         <div class="aspect-square bg-neutral-100 overflow-hidden">
-          <img src={`/images/${photo}.webp`} alt="" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
+          <img src={`${import.meta.env.BASE_URL}images/${photo}.webp`} alt="" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" />
         </div>
       ))}
     </div>
     <div class="text-center mt-10">
-      <a href="/work" class="text-sm tracking-widest uppercase border-b border-neutral-900 pb-1 hover:text-neutral-500 hover:border-neutral-500 transition-colors">
+      <a href={`${import.meta.env.BASE_URL}work`} class="text-sm tracking-widest uppercase border-b border-neutral-900 pb-1 hover:text-neutral-500 hover:border-neutral-500 transition-colors">
         Visi darbai
       </a>
     </div>
