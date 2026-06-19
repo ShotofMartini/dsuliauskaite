@@ -1,10 +1,15 @@
 ---
-import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
-import { series } from '../../data/series';
-import { getPhoto } from '../../utils/photos';
+import Photo from '../../components/Photo.astro';
+import { series as localSeries } from '../../data/series';
+import { hasSanity, getSeries } from '../../lib/sanity';
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  const sanitySeries = hasSanity ? await getSeries() : null;
+  const series = sanitySeries
+    ? sanitySeries.map((s) => ({ title: s.title, slug: s.slug.current, photos: s.photos }))
+    : localSeries;
+
   return series.map((s) => ({ params: { slug: s.slug }, props: { series: s } }));
 }
 
@@ -17,9 +22,9 @@ const { series: s } = Astro.props;
     <h1 class="font-serif text-5xl italic font-medium tracking-tight mt-4 mb-16">{s.title}</h1>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-      {s.photos.map((photo: string) => (
+      {s.photos.map((photo) => (
         <div class="aspect-[4/3] bg-rose-50 overflow-hidden">
-          <Image src={getPhoto(photo)} alt="" class="w-full h-full object-cover" widths={[400, 700, 1100]} sizes="(min-width: 640px) 50vw, 100vw" quality={80} />
+          <Photo photo={photo} class="w-full h-full object-cover" widths={[400, 700, 1100]} sizes="(min-width: 640px) 50vw, 100vw" />
         </div>
       ))}
     </div>

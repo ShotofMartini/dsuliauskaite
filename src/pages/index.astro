@@ -1,10 +1,10 @@
 ---
-import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import { getPhoto } from '../utils/photos';
+import Photo from '../components/Photo.astro';
+import { hasSanity, getTestimonials, getSiteSettings } from '../lib/sanity';
 
-// Šabloniniai atsiliepimai — pakeisti tikrais klientų atsiliepimais
-const testimonials = [
+// Šabloniniai atsiliepimai — rodomi, kol Sanity nesukonfigūruotas arba neturi įrašų
+const placeholderTestimonials = [
   {
     text: 'Deimantė sugebėjo užfiksuoti tokias nuoširdžias akimirkas, kokių net nesitikėjome. Nuotraukos pranoko visus lūkesčius!',
     author: 'Gabrielė',
@@ -21,12 +21,22 @@ const testimonials = [
     occasion: 'Renginio fotografija',
   },
 ];
+
+const sanitySettings = hasSanity ? await getSiteSettings() : null;
+const sanityTestimonials = hasSanity ? await getTestimonials() : null;
+
+const testimonials = sanityTestimonials && sanityTestimonials.length > 0 ? sanityTestimonials : placeholderTestimonials;
+const heroPhoto = sanitySettings?.heroPhoto ?? 'nature_dew_leaves_1';
+const introText =
+  sanitySettings?.introText ??
+  '23 metų fotografė iš Bartninkų. Fotografuoju žmones, akimirkas ir nuotaikas — ieškau tylos tarp kadrų ir to, kas nepasakoma žodžiais.';
+const featuredPhotos = ['portrait_blossom_kiss', 'nature_field_flowers', 'concept_red_fabric_hands', 'portrait_autumn_leaves', 'nature_mushroom', 'concept_thread_mask_forest'];
 ---
 
 <Layout title="Deimantė Šuliauskaitė" description="Fotografijos portfolio — akimirkos, kurios išlieka.">
   <!-- Hero -->
   <section class="relative h-[90vh] bg-neutral-100 flex items-end">
-    <Image src={getPhoto('nature_dew_leaves_1')} alt="" class="absolute inset-0 w-full h-full object-cover" widths={[640, 1024, 1600, 2400]} sizes="100vw" quality={80} />
+    <Photo photo={heroPhoto} class="absolute inset-0 w-full h-full object-cover" widths={[640, 1024, 1600, 2400]} sizes="100vw" />
     <div class="absolute inset-0 bg-black/20"></div>
     <div class="relative z-10 p-10 sm:p-16">
       <h1 class="font-serif text-white text-5xl sm:text-7xl italic font-medium tracking-tight drop-shadow-lg">
@@ -41,7 +51,7 @@ const testimonials = [
   <!-- Intro -->
   <section class="max-w-2xl mx-auto px-6 py-24 text-center">
     <p class="font-serif text-2xl sm:text-3xl italic leading-relaxed text-neutral-700">
-      23 metų fotografė iš Bartninkų. Fotografuoju žmones, akimirkas ir nuotaikas — ieškau tylos tarp kadrų ir to, kas nepasakoma žodžiais.
+      {introText}
     </p>
     <a href={`${import.meta.env.BASE_URL}work`} class="inline-block mt-10 text-sm tracking-widest uppercase border-b border-neutral-900 pb-1 hover:text-rose-500 hover:border-rose-400 transition-colors">
       Žiūrėti darbus
@@ -51,9 +61,9 @@ const testimonials = [
   <!-- Featured images preview -->
   <section class="max-w-6xl mx-auto px-6 pb-24">
     <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-      {['portrait_blossom_kiss', 'nature_field_flowers', 'concept_red_fabric_hands', 'portrait_autumn_leaves', 'nature_mushroom', 'concept_thread_mask_forest'].map(photo => (
+      {featuredPhotos.map(photo => (
         <div class="aspect-square bg-rose-50 overflow-hidden">
-          <Image src={getPhoto(photo)} alt="" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" widths={[300, 500, 800]} sizes="(min-width: 640px) 33vw, 50vw" quality={80} />
+          <Photo photo={photo} class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" widths={[300, 500, 800]} sizes="(min-width: 640px) 33vw, 50vw" />
         </div>
       ))}
     </div>
@@ -74,7 +84,10 @@ const testimonials = [
           <blockquote class="text-neutral-700 leading-relaxed mt-2 mb-6">{t.text}</blockquote>
           <figcaption class="text-sm">
             <span class="font-medium text-neutral-900">{t.author}</span>
-            <span class="block text-neutral-400 mt-1">{t.occasion}</span>
+            {t.occasion && <span class="block text-neutral-400 mt-1">{t.occasion}</span>}
+            {'sourceUrl' in t && t.sourceUrl && (
+              <a href={t.sourceUrl} target="_blank" rel="noopener" class="block text-rose-400 hover:text-rose-500 mt-1 text-xs">Facebook ↗</a>
+            )}
           </figcaption>
         </figure>
       ))}

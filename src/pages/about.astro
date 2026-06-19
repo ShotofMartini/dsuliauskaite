@@ -1,8 +1,18 @@
 ---
-import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import SocialIcons from '../components/SocialIcons.astro';
-import { getPhoto } from '../utils/photos';
+import Photo from '../components/Photo.astro';
+import { hasSanity, getSiteSettings } from '../lib/sanity';
+
+const sanitySettings = hasSanity ? await getSiteSettings() : null;
+const bioPhoto = sanitySettings?.bioPhoto ?? 'photo_0';
+const bioParagraphs = sanitySettings?.bioText
+  ? sanitySettings.bioText.split('\n').filter(Boolean)
+  : [
+      'Esu 23 metų fotografė, gimusi ir augusi Bartninkuose. Fotografuoti pradėjau fotografijos būrelyje Vilkaviškyje — ir nuo tada su fotoaparatu esu neišskiriama.',
+      'Fotografija man — būdas sustabdyti akimirką ir įžiūrėti tai, kas dažniausiai praslysta nepastebėta: žvilgsnį, šviesą, tylą tarp žodžių. Labiausiai mėgstu fotografuoti tikras emocijas — todėl renkuosi portretus ir dokumentinę fotografiją, situacijas, kuriose žmogus atsiskleidžia natūraliai, be pozos.',
+      'Kiekvienas kadras man yra maža istorija, kurią noriu papasakoti nuoširdžiai.',
+    ];
 ---
 
 <Layout title="Apie mane — Deimantė Šuliauskaitė" description="Apie fotografę — kilmė, stilius ir požiūris į fotografiją.">
@@ -12,21 +22,13 @@ import { getPhoto } from '../utils/photos';
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-16 items-start">
       <!-- Photo -->
       <div class="aspect-[3/4] bg-rose-50 overflow-hidden">
-        <Image src={getPhoto('photo_0')} alt="Deimantė Šuliauskaitė" class="w-full h-full object-cover" widths={[400, 600, 900]} sizes="(min-width: 640px) 50vw, 100vw" quality={80} />
+        <Photo photo={bioPhoto} alt="Deimantė Šuliauskaitė" class="w-full h-full object-cover" widths={[400, 600, 900]} sizes="(min-width: 640px) 50vw, 100vw" />
       </div>
 
       <!-- Bio -->
       <div class="space-y-6 text-neutral-700 leading-relaxed">
         <p class="font-signature text-4xl text-neutral-900">Deimantė Šuliauskaitė</p>
-        <p>
-          Esu 23 metų fotografė, gimusi ir augusi Bartninkuose. Fotografuoti pradėjau fotografijos būrelyje Vilkaviškyje — ir nuo tada su fotoaparatu esu neišskiriama.
-        </p>
-        <p>
-          Fotografija man — būdas sustabdyti akimirką ir įžiūrėti tai, kas dažniausiai praslysta nepastebėta: žvilgsnį, šviesą, tylą tarp žodžių. Labiausiai mėgstu fotografuoti tikras emocijas — todėl renkuosi portretus ir dokumentinę fotografiją, situacijas, kuriose žmogus atsiskleidžia natūraliai, be pozos.
-        </p>
-        <p>
-          Kiekvienas kadras man yra maža istorija, kurią noriu papasakoti nuoširdžiai.
-        </p>
+        {bioParagraphs.map((p) => <p>{p}</p>)}
 
         <blockquote class="border-l-2 border-rose-300 pl-6 italic text-neutral-600 whitespace-pre-line">
 Išgirsti

@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+import { getPhoto } from '../utils/photos';
+import { urlFor } from '../lib/sanity';
+import type { SanityPhoto } from '../lib/sanity';
+
+interface Props {
+  photo: string | SanityPhoto;
+  alt?: string;
+  class?: string;
+  widths: number[];
+  sizes: string;
+  quality?: number;
+}
+
+const { photo, alt = '', class: className, widths, sizes, quality = 80 } = Astro.props;
+const isSanityPhoto = typeof photo === 'object' && photo !== null;
+const largestWidth = widths[widths.length - 1];
+
+const srcset = isSanityPhoto
+  ? widths
+      .map((w) => `${urlFor((photo as SanityPhoto).image).width(w).quality(quality).auto('format').url()} ${w}w`)
+      .join(', ')
+  : '';
+---
+
+{
+  isSanityPhoto ? (
+    <img
+      src={urlFor((photo as SanityPhoto).image).width(largestWidth).quality(quality).auto('format').url()}
+      srcset={srcset}
+      sizes={sizes}
+      alt={alt || (photo as SanityPhoto).alt || (photo as SanityPhoto).title || ''}
+      class={className}
+      loading="lazy"
+      decoding="async"
+    />
+  ) : (
+    <Image src={getPhoto(photo as string)} alt={alt} class={className} widths={widths} sizes={sizes} quality={quality} />
+  )
+}

@@ -1,8 +1,14 @@
 ---
-import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
-import { series } from '../data/series';
-import { getPhoto } from '../utils/photos';
+import Photo from '../components/Photo.astro';
+import { series as localSeries } from '../data/series';
+import { hasSanity, getSeries } from '../lib/sanity';
+
+const sanitySeries = hasSanity ? await getSeries() : null;
+
+const series = sanitySeries
+  ? sanitySeries.map((s) => ({ title: s.title, slug: s.slug.current, cover: s.cover, photos: s.photos }))
+  : localSeries;
 ---
 
 <Layout title="Darbai — Deimantė Šuliauskaitė" description="Fotografijos portfolio — visi darbai ir projektai.">
@@ -13,7 +19,7 @@ import { getPhoto } from '../utils/photos';
       {series.map(s => (
         <a href={`${import.meta.env.BASE_URL}work/${s.slug}`} class="group">
           <div class="aspect-[4/3] bg-rose-50 mb-4 overflow-hidden">
-            <Image src={getPhoto(s.cover)} alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" widths={[400, 600, 900]} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" quality={80} />
+            <Photo photo={s.cover} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" widths={[400, 600, 900]} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" />
           </div>
           <h2 class="text-base font-medium group-hover:text-rose-500 transition-colors">{s.title}</h2>
           <p class="text-sm text-neutral-500 mt-1">{s.photos.length} nuotraukos</p>

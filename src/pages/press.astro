@@ -1,7 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { hasSanity, getPressItems } from '../lib/sanity';
 
-const publications = [
+const placeholderPublications = [
   {
     outlet: '15min.lt',
     title: 'Pavyzdinis straipsnio pavadinimas apie fotografės darbus',
@@ -21,6 +22,9 @@ const publications = [
     url: '#',
   },
 ];
+
+const sanityPress = hasSanity ? await getPressItems() : null;
+const publications = sanityPress && sanityPress.length > 0 ? sanityPress : placeholderPublications;
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('lt-LT', { year: 'numeric', month: 'long' });
