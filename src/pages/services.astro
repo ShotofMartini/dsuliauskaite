@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { hasSanity, getFaqItems } from '../lib/sanity';
 
 const base = import.meta.env.BASE_URL;
 
@@ -45,32 +46,35 @@ const steps = [
   },
 ];
 
-const faqs = [
+const placeholderFaqs = [
   {
-    q: 'Ar atvažiuoji fotografuoti į kitą miestą?',
-    a: 'Taip, fotografuoju įvairiose Lietuvos vietose. Kelionės sąlygas aptariame individualiai, atsižvelgiant į atstumą.',
+    question: 'Ar atvažiuoji fotografuoti į kitą miestą?',
+    answer: 'Taip, fotografuoju įvairiose Lietuvos vietose. Kelionės sąlygas aptariame individualiai, atsižvelgiant į atstumą.',
   },
   {
-    q: 'Per kiek laiko gaunu nuotraukas?',
-    a: 'Paruoštas nuotraukas pristatau per 1–4 savaites — terminas priklauso nuo sesijos apimties ir sezono.',
+    question: 'Per kiek laiko gaunu nuotraukas?',
+    answer: 'Paruoštas nuotraukas pristatau per 1–4 savaites — terminas priklauso nuo sesijos apimties ir sezono.',
   },
   {
-    q: 'Ar nuotraukos apdorojamos?',
-    a: 'Taip, kiekvieną atrinktą nuotrauką apdoroju (spalvos, šviesa, subtilus retušas), išlaikydama natūralų ir gyvą rezultatą.',
+    question: 'Ar nuotraukos apdorojamos?',
+    answer: 'Taip, kiekvieną atrinktą nuotrauką apdoroju (spalvos, šviesa, subtilus retušas), išlaikydama natūralų ir gyvą rezultatą.',
   },
   {
-    q: 'Kiek nuotraukų gausiu?',
-    a: 'Nuotraukų skaičius priklauso nuo sesijos tipo ir trukmės — tikslų skaičių aptariame prieš fotosesiją.',
+    question: 'Kiek nuotraukų gausiu?',
+    answer: 'Nuotraukų skaičius priklauso nuo sesijos tipo ir trukmės — tikslų skaičių aptariame prieš fotosesiją.',
   },
   {
-    q: 'Ar gausiu neapdorotas (RAW) nuotraukas?',
-    a: 'Ne — pristatau tik atrinktas ir apdorotas nuotraukas. Neretušuoti (RAW) originalai klientams neteikiami, nes apdorojimas yra neatsiejama mano darbo ir stiliaus dalis.',
+    question: 'Ar gausiu neapdorotas (RAW) nuotraukas?',
+    answer: 'Ne — pristatau tik atrinktas ir apdorotas nuotraukas. Neretušuoti (RAW) originalai klientams neteikiami, nes apdorojimas yra neatsiejama mano darbo ir stiliaus dalis.',
   },
   {
-    q: 'Kaip užsisakyti fotosesiją?',
-    a: 'Parašyk man el. paštu arba per Instagram / Facebook. Suderinsime datą ir visas detales.',
+    question: 'Kaip užsisakyti fotosesiją?',
+    answer: 'Parašyk man el. paštu arba per Instagram / Facebook. Suderinsime datą ir visas detales.',
   },
 ];
+
+const sanityFaqs = hasSanity ? await getFaqItems() : null;
+const faqs = sanityFaqs && sanityFaqs.length > 0 ? sanityFaqs : placeholderFaqs;
 ---
 
 <Layout title="Paslaugos — Deimantė Šuliauskaitė" description="Fotografijos paslaugos — portretai, šeimos sesijos, renginiai ir bendradarbiavimai.">
@@ -111,10 +115,10 @@ const faqs = [
         {faqs.map(faq => (
           <details class="group py-5">
             <summary class="flex justify-between items-center cursor-pointer list-none text-base font-medium hover:text-rose-500 transition-colors">
-              {faq.q}
+              {faq.question}
               <span class="ml-4 text-rose-300 text-xl transition-transform group-open:rotate-45">+</span>
             </summary>
-            <p class="text-neutral-600 text-sm leading-relaxed mt-3">{faq.a}</p>
+            <p class="text-neutral-600 text-sm leading-relaxed mt-3">{faq.answer}</p>
           </details>
         ))}
       </div>

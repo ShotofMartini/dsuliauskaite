@@ -82,6 +82,19 @@ export async function getPressItems(): Promise<SanityPressItem[]> {
   );
 }
 
+export interface SanityFaqItem {
+  _id: string;
+  question: string;
+  answer: string;
+}
+
+export async function getFaqItems(): Promise<SanityFaqItem[]> {
+  if (!sanityClient) return [];
+  return sanityClient.fetch(
+    `*[_type == "faqItem"] | order(order asc) { _id, question, answer }`
+  );
+}
+
 export interface SanitySiteSettings {
   heroPhoto?: SanityPhoto;
   introText?: string;
