@@ -51,6 +51,7 @@ export interface SanityPressItem {
   title: string;
   url: string;
   date: string;
+  photo?: SanityPhoto;
 }
 
 const photoProjection = `{ _id, title, alt, image }`;
@@ -78,7 +79,10 @@ export async function getTestimonials(): Promise<SanityTestimonial[]> {
 export async function getPressItems(): Promise<SanityPressItem[]> {
   if (!sanityClient) return [];
   return sanityClient.fetch(
-    `*[_type == "pressItem"] | order(date desc) { _id, outlet, title, url, date }`
+    `*[_type == "pressItem"] | order(date desc) {
+      _id, outlet, title, url, date,
+      photo -> ${photoProjection}
+    }`
   );
 }
 

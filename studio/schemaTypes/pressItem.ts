@@ -29,6 +29,12 @@ export default defineType({
       type: 'date',
       validation: (Rule) => Rule.required(),
     }),
+    defineField({
+      name: 'photo',
+      title: 'Nuotrauka',
+      type: 'reference',
+      to: [{ type: 'photo' }],
+    }),
   ],
   orderings: [
     {
@@ -38,6 +44,6 @@ export default defineType({
     },
   ],
   preview: {
-    select: { title: 'title', subtitle: 'outlet' },
+    select: { title: 'title', subtitle: 'outlet', media: 'photo.image' },
   },
 });
