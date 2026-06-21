@@ -37,8 +37,8 @@ function formatDate(dateStr: string) {
     <h1 class="font-serif text-5xl italic font-medium tracking-tight mb-16">Publikacijos</h1>
 
     <ul class="divide-y divide-neutral-200">
-      {publications.map(pub => (
-        <li class="py-8">
+      {publications.map((pub, i) => (
+        <li class="py-8" data-animate style={`transition-delay: ${i * 75}ms`}>
           <a href={pub.url} target="_blank" rel="noopener" class="group flex flex-col sm:flex-row sm:items-start gap-5">
             {'photo' in pub && pub.photo && (
               <div class="w-32 h-32 shrink-0 bg-rose-50 overflow-hidden">

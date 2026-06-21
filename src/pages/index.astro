@@ -49,7 +49,7 @@ const featuredPhotos = ['portrait_blossom_kiss', 'nature_field_flowers', 'concep
   </section>
 
   <!-- Intro -->
-  <section class="max-w-2xl mx-auto px-6 py-24 text-center">
+  <section class="max-w-2xl mx-auto px-6 py-24 text-center" data-animate>
     <p class="font-serif text-2xl sm:text-3xl italic leading-relaxed text-neutral-700">
       {introText}
     </p>
@@ -61,8 +61,8 @@ const featuredPhotos = ['portrait_blossom_kiss', 'nature_field_flowers', 'concep
   <!-- Featured images preview -->
   <section class="max-w-6xl mx-auto px-6 pb-24">
     <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-      {featuredPhotos.map(photo => (
-        <div class="aspect-square bg-rose-50 overflow-hidden">
+      {featuredPhotos.map((photo, i) => (
+        <div class="aspect-square bg-rose-50 overflow-hidden" data-animate style={`transition-delay: ${i * 75}ms`}>
           <Photo photo={photo} class="w-full h-full object-cover hover:scale-105 transition-transform duration-300" widths={[300, 500, 800]} sizes="(min-width: 640px) 33vw, 50vw" />
         </div>
       ))}
@@ -78,8 +78,8 @@ const featuredPhotos = ['portrait_blossom_kiss', 'nature_field_flowers', 'concep
   <section class="max-w-5xl mx-auto px-6 py-20">
     <h2 class="font-serif text-4xl italic font-medium tracking-tight text-center mb-16">Klientų atsiliepimai</h2>
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-10">
-      {testimonials.map(t => (
-        <figure class="text-center">
+      {testimonials.map((t, i) => (
+        <figure class="text-center" data-animate style={`transition-delay: ${i * 100}ms`}>
           <span class="font-serif text-5xl italic text-rose-200 leading-none">&ldquo;</span>
           <blockquote class="text-neutral-700 leading-relaxed mt-2 mb-6">{t.text}</blockquote>
           <figcaption class="text-sm">

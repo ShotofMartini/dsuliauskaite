@@ -94,8 +94,8 @@ const faqs = sanityFaqs && sanityFaqs.length > 0 ? sanityFaqs : placeholderFaqs;
     </p>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-10">
-      {services.map(service => (
-        <div class="border-l-2 border-rose-200 pl-6">
+      {services.map((service, i) => (
+        <div class="border-l-2 border-rose-200 pl-6" data-animate style={`transition-delay: ${(i % 2) * 75}ms`}>
           <h2 class="font-serif text-2xl italic font-medium mb-2">{service.title}</h2>
           <p class="text-neutral-600 text-sm leading-relaxed">{service.description}</p>
         </div>
@@ -107,7 +107,7 @@ const faqs = sanityFaqs && sanityFaqs.length > 0 ? sanityFaqs : placeholderFaqs;
       <h2 class="font-serif text-4xl italic font-medium tracking-tight mb-12">Kaip vyksta fotosesija</h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {steps.map((step, i) => (
-          <div>
+          <div data-animate style={`transition-delay: ${i * 75}ms`}>
             <span class="font-serif text-3xl italic text-rose-300">0{i + 1}</span>
             <h3 class="text-base font-medium mt-3 mb-2">{step.title}</h3>
             <p class="text-neutral-600 text-sm leading-relaxed">{step.description}</p>

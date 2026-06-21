@@ -22,8 +22,8 @@ const { series: s } = Astro.props;
     <h1 class="font-serif text-5xl italic font-medium tracking-tight mt-4 mb-16">{s.title}</h1>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-      {s.photos.map((photo) => (
-        <div class="aspect-[4/3] bg-rose-50 overflow-hidden">
+      {s.photos.map((photo, i) => (
+        <div class="aspect-[4/3] bg-rose-50 overflow-hidden" data-animate style={`transition-delay: ${(i % 4) * 75}ms`}>
           <Photo photo={photo} class="w-full h-full object-cover" widths={[400, 700, 1100]} sizes="(min-width: 640px) 50vw, 100vw" />
         </div>
       ))}
