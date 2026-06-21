@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import { getPhoto } from '../utils/photos';
+import { getPhoto, getPhotoAlt } from '../utils/photos';
 import { urlFor } from '../lib/sanity';
 import type { SanityPhoto } from '../lib/sanity';
 
@@ -36,6 +36,6 @@ const srcset = isSanityPhoto
       decoding="async"
     />
   ) : (
-    <Image src={getPhoto(photo as string)} alt={alt} class={className} widths={widths} sizes={sizes} quality={quality} />
+    <Image src={getPhoto(photo as string)} alt={alt || getPhotoAlt(photo as string)} class={className} widths={widths} sizes={sizes} quality={quality} />
   )
 }
