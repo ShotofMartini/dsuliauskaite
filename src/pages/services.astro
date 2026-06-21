@@ -79,6 +79,14 @@ const placeholderFaqs = [
     question: 'Kaip užsisakyti fotosesiją?',
     answer: 'Parašyk man el. paštu arba per Instagram / Facebook. Suderinsime datą ir visas detales.',
   },
+  {
+    question: 'Kiek kainuoja fotosesija?',
+    answer: 'Kaina priklauso nuo sesijos tipo, trukmės ir vietos — tikslią kainą aptariame individualiai po pirmo susisiekimo.',
+  },
+  {
+    question: 'Prieš kiek laiko reikia rezervuoti datą?',
+    answer: 'Populiariausiu sezonu (gegužė–rugsėjis) rekomenduoju rezervuotis bent 2–3 mėnesius iš anksto, ypač vestuvėms — datų tuo laiku būna nedaug.',
+  },
 ];
 
 const sanityFaqs = hasSanity ? await getFaqItems() : null;
@@ -121,13 +129,15 @@ const faqs = sanityFaqs && sanityFaqs.length > 0 ? sanityFaqs : placeholderFaqs;
       <h2 class="font-serif text-4xl italic font-medium tracking-tight mb-12">Dažni klausimai</h2>
       <div class="divide-y divide-neutral-200 border-t border-neutral-200">
         {faqs.map((faq, i) => (
-          <details class="group py-5" data-animate style={`transition-delay: ${(i % 6) * 60}ms`}>
-            <summary class="flex justify-between items-center cursor-pointer list-none text-base font-medium hover:text-rose-500 transition-colors">
-              {faq.question}
-              <span class="ml-4 text-rose-300 text-xl transition-transform group-open:rotate-45">+</span>
-            </summary>
-            <p class="text-neutral-600 text-sm leading-relaxed mt-3">{faq.answer}</p>
-          </details>
+          <div class="faq-item py-5" data-animate style={`transition-delay: ${(i % 6) * 60}ms`}>
+            <button type="button" class="faq-trigger flex w-full justify-between items-center gap-4 text-left cursor-pointer text-base font-medium hover:text-rose-500 transition-colors" aria-expanded="false">
+              <span>{faq.question}</span>
+              <span class="faq-icon shrink-0 text-rose-300 text-xl transition-transform duration-300">+</span>
+            </button>
+            <div class="faq-panel overflow-hidden transition-[max-height] duration-300 ease-in-out" style="max-height: 0px">
+              <p class="text-neutral-600 text-sm leading-relaxed pt-3 pb-1">{faq.answer}</p>
+            </div>
+          </div>
         ))}
       </div>
     </div>
@@ -144,4 +154,26 @@ const faqs = sanityFaqs && sanityFaqs.length > 0 ? sanityFaqs : placeholderFaqs;
       </a>
     </div>
   </section>
+
+  <script>
+    function initFaqAccordion() {
+      document.querySelectorAll<HTMLButtonElement>('.faq-trigger').forEach((btn) => {
+        if (btn.dataset.faqInit) return;
+        btn.dataset.faqInit = 'true';
+
+        btn.addEventListener('click', () => {
+          const panel = btn.nextElementSibling as HTMLElement | null;
+          if (!panel) return;
+          const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+          btn.setAttribute('aria-expanded', String(!isOpen));
+          btn.querySelector('.faq-icon')?.classList.toggle('rotate-45', !isOpen);
+          panel.style.maxHeight = isOpen ? '0px' : `${panel.scrollHeight}px`;
+        });
+      });
+    }
+
+    initFaqAccordion();
+    document.addEventListener('astro:page-load', initFaqAccordion);
+  </script>
 </Layout>
