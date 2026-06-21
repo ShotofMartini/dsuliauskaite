@@ -12,6 +12,24 @@ const { title = 'Deimantė Šuliauskaitė', description = 'Fotografijos portfoli
 
 const ogImage = new URL('og-image.jpg', Astro.site + import.meta.env.BASE_URL.replace(/^\//, ''));
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
+const siteUrl = new URL(import.meta.env.BASE_URL, Astro.site);
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Deimantė Šuliauskaitė — fotografas',
+  description: 'Vestuvių, krikštynų ir portretų fotografas Vilniuje, dirbantis visoje Lietuvoje.',
+  image: ogImage.toString(),
+  url: siteUrl.toString(),
+  email: 'dsuliauskaite@gmail.com',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Vilnius',
+    addressCountry: 'LT',
+  },
+  areaServed: 'Lietuva',
+  sameAs: ['https://www.instagram.com/ataik_nutrauksiu/', 'https://www.facebook.com/fotodiamo'],
+};
 ---
 
 <!doctype html>
@@ -36,6 +54,7 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body class="min-h-screen bg-white text-neutral-900">
     <Nav />
