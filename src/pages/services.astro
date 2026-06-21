@@ -120,8 +120,8 @@ const faqs = sanityFaqs && sanityFaqs.length > 0 ? sanityFaqs : placeholderFaqs;
     <div id="duk" class="mt-24 scroll-mt-24">
       <h2 class="font-serif text-4xl italic font-medium tracking-tight mb-12">Dažni klausimai</h2>
       <div class="divide-y divide-neutral-200 border-t border-neutral-200">
-        {faqs.map(faq => (
-          <details class="group py-5">
+        {faqs.map((faq, i) => (
+          <details class="group py-5" data-animate style={`transition-delay: ${(i % 6) * 60}ms`}>
             <summary class="flex justify-between items-center cursor-pointer list-none text-base font-medium hover:text-rose-500 transition-colors">
               {faq.question}
               <span class="ml-4 text-rose-300 text-xl transition-transform group-open:rotate-45">+</span>
